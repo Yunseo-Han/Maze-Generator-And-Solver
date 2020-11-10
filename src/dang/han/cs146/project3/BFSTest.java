@@ -15,4 +15,20 @@ class BFSTest {
 		int rand_index = rand.nextInt(7)+4; //range: 4-10
 	}
 	
+	@Test 
+	/*
+	 *  + +-+-+-+
+	 *  |     | |
+	 *  + +-+-+ +
+	 *  | | |   |
+	 *  +-+ + + +
+	 *  |     | |
+	 *  +-+-+-+ +
+	 */
+	void test4x4(){
+
+		
+		
+	}
+	
 }

@@ -42,6 +42,16 @@ public class Maze {
 		
 	}
 	
+	public void connectHorizontal(Node right, Node left) {
+		right.connectEast(left);
+		left.connectWest(right);
+	}
+	
+	public void connectVertical(Node top, Node bottom) {
+		top.connectSouth(bottom);
+		bottom.connectNorth(top);
+	}
+	
 	
 	/*
 	 * Enough walls must be removed so that every room (therefore also
