@@ -14,12 +14,16 @@ public class BFS {
 	 * This method implements Breadth-First Search. 
 	 * 
 	 * NOTE: NOT FINISHED. HAVE NOT FIGURED OUT HOW TO GET THE SHORTEST PATH
+	 * 
+	 * 11/10/2020 01:00 -- added destination (line 20 and 48) 
 	 */
-	void search(Node[][] maze, Node source) {
+	void search(Node[][] maze, Node source, Node destination) {
+		Node currNode;
+		
 		//initialize vertices 
 		for (int row = 0; row < maze.length; row++) {
 			for (int col = 0; col < maze.length; col++) {
-				Node currNode = maze[row][col];
+				currNode = maze[row][col];
 				currNode.discoverStatus = Status.UNDISCOVERED;
 				currNode.distance = Integer.MAX_VALUE;
 				currNode.predecessor = null;
@@ -34,12 +38,17 @@ public class BFS {
 			Node exploredNode = queue.remove();
 			ArrayList<Node> currNodeConnections = exploredNode.connections;
 			for (int i = 0; i < currNodeConnections.size(); i++) {
-				Node currNode = currNodeConnections.get(i);
+				currNode = currNodeConnections.get(i);
 				if (currNode.discoverStatus == Status.UNDISCOVERED) {
 					currNode.setStatus(Status.VISITED);
 					currNode.setDistance(exploredNode.distance + 1);
 					currNode.setPredecessor(exploredNode);
 					queue.add(currNode);
+					
+					// destination found
+					if (currNode == destination) {
+						return;
+					}
 				}
 			}
 			exploredNode.setStatus(Status.EXPLORED);
