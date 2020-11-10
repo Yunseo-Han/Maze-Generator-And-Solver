@@ -72,7 +72,7 @@ public class Node {
 	}
 	
 	public ArrayList<Node> getConnections() {
-		return new ArrayList<>(connections);			// why not just return connections? 
+		return connections;			// why not just return connections? 
 	}
 	
 	public boolean isConntectedTo(Node that) {
