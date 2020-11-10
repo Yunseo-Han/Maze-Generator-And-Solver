@@ -6,15 +6,17 @@ package dang.han.cs146.project3;
  *
  */
 public class Node {
-	private int data;
+	private int row;
+	private int col;
 	private Node north;
 	private Node south;
 	private Node east;
 	private Node west;
 	
 	
-	public Node(int data) {
-		this.data = data;
+	public Node(int row, int col) {
+		this.row = row;
+		this.col = col;
 		this.north = null;
 		this.south = null;
 		this.east = null;
