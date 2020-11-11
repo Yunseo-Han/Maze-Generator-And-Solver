@@ -1,6 +1,8 @@
 package dang.han.cs146.project3;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
 
 import dang.han.cs146.project3.Node.Status;
 
@@ -32,18 +34,18 @@ public class Maze {
 				
 				// north cell
 				if (checkCell(i, j-1)) {
-					maze[i][j].connections.add(maze[i][j-1]);
+					maze[i][j].neighbors.add(maze[i][j-1]);
 				}
 				// south cell
 				if (checkCell(i, j+1)) {
-					maze[i][j].connections.add(maze[i][j+1]);
+					maze[i][j].neighbors.add(maze[i][j+1]);
 				}
 				// west cell
 				if (checkCell(i-1, j)) {
-					maze[i-1][j].connections.add(maze[i-1][j]);
+					maze[i-1][j].neighbors.add(maze[i-1][j]);
 				}
 				if (checkCell(i+1, j)) {
-					maze[i+1][j].connections.add(maze[i+1][j]);
+					maze[i+1][j].neighbors.add(maze[i+1][j]);
 				}
 			}
 		}
@@ -68,22 +70,41 @@ public class Maze {
 	// NOTE: UNFINISHED 
 	// https://www.youtube.com/watch?v=SqqOB2HgGsM&ab_channel=JonnyFosnight
 	public void createMaze(int size) {
+		Stack<Node> cellStack = new Stack<>();
 		maze = new Node[size][size];
-		int totalCells = size*size;
 		Node currentCell = maze[0][0];
 		int visitedCells = 1;
+		int totalCells = size*size;
 		
 		while (visitedCells < totalCells) {
+			// find all neighbors of CurrentCell with all walls intact
 			ArrayList<Node> wallsIntact = new ArrayList<>();
-			for (int i=0; i<currentCell.connections.size(); i++) {
-				if (currentCell.connections.get(i).allWallsIntact()) {
-					wallsIntact.add(currentCell.connections.get(i));
-				}	
-				// "if one or more found choose one at RANDOM"?? can I just choose the first one?
-				if (wallsIntact.size() > 0) {
-					
+			for (int i=0; i<currentCell.neighbors.size(); i++) {
+				if (currentCell.neighbors.get(i).allWallsIntact()) {
+					wallsIntact.add(currentCell.neighbors.get(i));
 				}
 				
+			// if one or more found, choose one Node at random
+				if (wallsIntact.size() > 0) {
+					Random rand = new Random();
+					rand.setSeed(20);	// helps generate the same "random" maze
+					int randValue = rand.nextInt(currentCell.neighbors.size());
+					
+					Node randCell = wallsIntact.get(randValue);
+					
+					// knock down the wall between it and CurrentCell
+					randCell.removeWallBtwn(currentCell);
+					currentCell.removeWallBtwn(randCell);
+					
+					// push CurrentCell location on the CellStack
+					
+					
+					// make the new cell CurrentCell
+					// add 1 to Visited Cells
+				}
+			// else 
+				//pop the most recent cell entry off the Cell Stack
+				//make it Current Cell				
 			}
 		}
 		
@@ -95,6 +116,7 @@ public class Maze {
 		
 	}
 	
+	
 	public void connectHorizontal(Node right, Node left) {
 		right.connectEast(left);
 		left.connectWest(right);
@@ -104,7 +126,6 @@ public class Maze {
 		top.connectSouth(bottom);
 		bottom.connectNorth(top);
 	}
-	
 	
 	/*
 	 * Enough walls must be removed so that every room (therefore also

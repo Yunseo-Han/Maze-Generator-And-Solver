@@ -9,6 +9,7 @@ import dang.han.cs146.project3.Node.Status;
 public class BFS {
 	
 	Queue<Node> queue = new LinkedList<>();
+	ArrayList<Node> path = new ArrayList<>();
 	
 	/*
 	 * This method implements Breadth-First Search. 
@@ -19,7 +20,6 @@ public class BFS {
 	 */
 	void search(Node[][] maze, Node source, Node destination) {
 		
-		
 		//initialize all vertices 
 		for (int row = 0; row < maze.length; row++) {
 			for (int col = 0; col < maze.length; col++) {
@@ -29,7 +29,6 @@ public class BFS {
 				currNode.predecessor = null;
 			}
 		}
-		
 		source.discoverStatus = Status.VISITED;	
 		source.distance = 0;
 		source.predecessor = null;
@@ -38,10 +37,11 @@ public class BFS {
 		// Queue has BFS order 
 		while(queue.size() != 0) {
 			Node exploredNode = queue.remove();
-			ArrayList<Node> currNodeConnections = exploredNode.connections;
+			ArrayList<Node> currNodeConnections = exploredNode.adjList;
 			for (int i = 0; i < currNodeConnections.size(); i++) {
 				Node currNode = currNodeConnections.get(i);
 				if (currNode.discoverStatus == Status.UNDISCOVERED) {
+					
 					currNode.setStatus(Status.VISITED);
 					currNode.setDistance(exploredNode.distance + 1);
 					currNode.setPredecessor(exploredNode);
