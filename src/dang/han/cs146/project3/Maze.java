@@ -1,6 +1,7 @@
 package dang.han.cs146.project3;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
@@ -17,39 +18,52 @@ public class Maze {
 	public Maze(int size) {
 		this.size = size;
 		maze = new Node[size][size];
+		initializeMaze();
 	}
 	
 	
 	/**
-	 * connects cells together with consideration of the parameter cells
-	 * so the cells are properly connected according to their position but the walls are still up
+	 * initializes all nodes in the array
 	 */
-	private void setNeighbors() {
+	private void initializeMaze() {
 		
 		for (int i=0; i<size; i++) {
 			for (int j=0; j<size; j++) {
-				maze[i][j] = new Node(i, j);	// maybe i+1 and j+1 for node position idk probs not
+				maze[i][j] = new Node(i, j);	
 				
-				// if statements below checks if the neighbor being added is a cell that exists to account for edges of the maze
-				
-				// north cell
-				if (checkCell(i, j-1)) {
-					maze[i][j].neighbors.add(maze[i][j-1]);
-				}
-				// south cell
-				if (checkCell(i, j+1)) {
-					maze[i][j].neighbors.add(maze[i][j+1]);
-				}
-				// west cell
-				if (checkCell(i-1, j)) {
-					maze[i-1][j].neighbors.add(maze[i-1][j]);
-				}
-				if (checkCell(i+1, j)) {
-					maze[i+1][j].neighbors.add(maze[i+1][j]);
-				}
 			}
 		}
 	}
+	
+	/**
+	 * finds all the neighbors of given node
+	 * @param node
+	 * @return an arraylist of neighboring nodes
+	 */
+	private List<Node> findNeighbors(Node node){
+		
+		List<Node> neighbors = new ArrayList<>();
+		// if statements below checks if the neighbor being added is a cell that exists to account for edges of the maze
+		
+		// north cell
+		if (checkCell(node.row, node.col-1)) {
+			neighbors.add(maze[node.row][node.col-1]);
+		}
+		// south cell
+		if (checkCell(node.row, node.col+1)) {
+			neighbors.add(maze[node.row][node.col+1]);
+		}
+		// west cell
+		if (checkCell(node.row-1, node.col)) {
+			neighbors.add(maze[node.row-1][node.col]);
+		}
+		if (checkCell(node.row+1, node.col)) {
+			neighbors.add(maze[node.row+1][node.col]);
+		}
+		
+		return neighbors;
+	}
+	
 	
 	/**
 	 * checks if the cell being added as neighbor is valid
@@ -68,27 +82,27 @@ public class Maze {
 	
 	// Create a maze with r*r rooms
 	// NOTE: UNFINISHED 
-	// https://www.youtube.com/watch?v=SqqOB2HgGsM&ab_channel=JonnyFosnight
 	public void createMaze(int size) {
 		Stack<Node> cellStack = new Stack<>();
-		maze = new Node[size][size];
+		int totalCells = size*size;
 		Node currentCell = maze[0][0];
 		int visitedCells = 1;
-		int totalCells = size*size;
+		
 		
 		while (visitedCells < totalCells) {
 			// find all neighbors of CurrentCell with all walls intact
-			ArrayList<Node> wallsIntact = new ArrayList<>();
-			for (int i=0; i<currentCell.neighbors.size(); i++) {
-				if (currentCell.neighbors.get(i).allWallsIntact()) {
-					wallsIntact.add(currentCell.neighbors.get(i));
+			List<Node> neighbors = findNeighbors(currentCell);
+			List<Node> wallsIntact = new ArrayList<>();
+			for (int i=0; i<neighbors.size(); i++) {
+				if (neighbors.get(i).allWallsIntact()) {
+					wallsIntact.add(neighbors.get(i));
 				}
 				
 			// if one or more found, choose one Node at random
 				if (wallsIntact.size() > 0) {
 					Random rand = new Random();
 					rand.setSeed(20);	// helps generate the same "random" maze
-					int randValue = rand.nextInt(currentCell.neighbors.size());
+					int randValue = rand.nextInt(neighbors.size());
 					
 					Node randCell = wallsIntact.get(randValue);
 					
@@ -97,23 +111,21 @@ public class Maze {
 					currentCell.removeWallBtwn(randCell);
 					
 					// push CurrentCell location on the CellStack
-					
+					cellStack.push(currentCell);
 					
 					// make the new cell CurrentCell
+					currentCell = wallsIntact.get(randValue);
 					// add 1 to Visited Cells
+					visitedCells++;
 				}
-			// else 
-				//pop the most recent cell entry off the Cell Stack
-				//make it Current Cell				
+				else {
+					//pop the most recent cell entry off the Cell Stack
+					//make it Current Cell
+					currentCell = cellStack.pop();
+				}
+						
 			}
 		}
-		
-		// review: create a graph that has 3 connections on the perimeter nodes and 4 connections inside
-			// how to keep track of which cell (node) belong in which direction 
-				// each cell needs a row number and column number
-				// create each cell with row and column using nested for loop
-		// stack use 
-		
 	}
 	
 	

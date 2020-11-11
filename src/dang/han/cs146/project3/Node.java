@@ -15,14 +15,15 @@ public class Node {
 		UNDISCOVERED, VISITED, EXPLORED;
 	}
 	
-	private int row;
-	private int col;
+	int row;
+	int col;
 	private boolean hasNorthWall;
 	private boolean hasSouthWall;
 	private boolean hasEastWall;
 	private boolean hasWestWall;
 	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
-	ArrayList<Node> neighbors;			// Neighbors of Node. NOTE: isn't necessarily have an edge/connection to this Node
+	//ArrayList<Node> neighbors;			// Neighbors of Node. NOTE: isn't necessarily have an edge/connection to this Node
+	//private int size; 		// size of the maze this node is in
 
 	
 	Status discoverStatus;
@@ -39,15 +40,18 @@ public class Node {
 	public Node(int row, int col) {
 		this.row = row;
 		this.col = col;
-		this.hasNorthWall = false;
-		this.hasSouthWall = false;
-		this.hasEastWall = false;
-		this.hasWestWall = false;
+		this.hasNorthWall = true;
+		this.hasSouthWall = true;
+		this.hasEastWall = true;
+		this.hasWestWall = true;
 		adjList = new ArrayList<>();
-		neighbors = new ArrayList<>();
+		//neighbors = new ArrayList<>();
 		discoverStatus = Status.UNDISCOVERED;
 		predecessor = null;
+		this.size = size;
 	}
+	
+	
 	
 	public void setStatus(Status discoverStatus) {
 		this.discoverStatus = discoverStatus;
