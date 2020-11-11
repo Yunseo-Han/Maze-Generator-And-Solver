@@ -6,10 +6,63 @@ import dang.han.cs146.project3.Node.Status;
 
 public class Maze {
 	
-	
 	int pathLength;
 	int visitedCells;
+	
 	Node[][] maze;
+	private int size;
+	
+	public Maze(int size) {
+		this.size = size;
+		maze = new Node[size][size];
+	}
+	
+	
+	/**
+	 * connects cells together with consideration of the parameter cells
+	 * so the cells are properly connected according to their position but the walls are still up
+	 */
+	private void setNeighbors() {
+		
+		for (int i=0; i<size; i++) {
+			for (int j=0; j<size; j++) {
+				maze[i][j] = new Node(i, j);	// maybe i+1 and j+1 for node position idk probs not
+				
+				// if statements below checks if the neighbor being added is a cell that exists to account for edges of the maze
+				
+				// north cell
+				if (checkCell(i, j-1)) {
+					maze[i][j].connections.add(maze[i][j-1]);
+				}
+				// south cell
+				if (checkCell(i, j+1)) {
+					maze[i][j].connections.add(maze[i][j+1]);
+				}
+				// west cell
+				if (checkCell(i-1, j)) {
+					maze[i-1][j].connections.add(maze[i-1][j]);
+				}
+				if (checkCell(i+1, j)) {
+					maze[i+1][j].connections.add(maze[i+1][j]);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * checks if the cell being added as neighbor is valid
+	 * @param i 
+	 * @param j
+	 * @return true if cell is safe to be added as a neighbor
+	 */
+	private boolean checkCell(int i, int j) {
+		if (i<0 || i>(size-1) || j<0 || j>(size-1)) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 	
 	// Create a maze with r*r rooms
 	// NOTE: UNFINISHED 
