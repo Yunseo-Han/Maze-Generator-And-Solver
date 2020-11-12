@@ -38,7 +38,8 @@ class MazeTest {
 		
 		BFS bfs = new BFS();
 		bfs.search(maze4x4.maze, maze4x4.maze[0][0], maze4x4.maze[3][3]);
-		bfs.printPath();
+		bfs.printPath(maze4x4.maze, maze4x4.maze[0][0], maze4x4.maze[3][3]);
+		System.out.println("\n");
 		maze4x4.printMaze();
 		
 	}

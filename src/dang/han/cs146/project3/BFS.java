@@ -58,9 +58,17 @@ public class BFS {
 		}
 	}
 	
-	void printPath() {
-		for (int i = 0; i < path.size(); i++) {
-			System.out.println( "(" + path.get(i).row + ", " + path.get(i).col + ")");
+	/*
+	 * Prints the shortest path
+	 */
+	void printPath(Node[][]maze, Node source, Node destination) {
+		if (destination.equals(source)) {
+			System.out.print("(" + source.row + ", " + source.col + ")");
+		} else if (destination.predecessor == null) {
+			System.out.print("no path from" + source + " to " + destination + "exists");
+		} else {
+			printPath(maze, source, destination.predecessor);
+			System.out.print("(" + destination.row + ", " + destination.col + ")");
 		}
 	}
 }
