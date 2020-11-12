@@ -1,6 +1,7 @@
 package dang.han.cs146.project3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -41,12 +42,12 @@ public class BFS {
 			for (int i = 0; i < currNodeConnections.size(); i++) {
 				Node currNode = currNodeConnections.get(i);
 				if (currNode.discoverStatus == Status.UNDISCOVERED) {
-					
 					currNode.setStatus(Status.VISITED);
 					currNode.setDistance(exploredNode.distance + 1);
 					currNode.setPredecessor(exploredNode);
 					queue.add(currNode);
 					
+					path.add(currNode);
 					// destination found
 					if (currNode == destination) {
 						return;
@@ -54,6 +55,12 @@ public class BFS {
 				}
 			}
 			exploredNode.setStatus(Status.EXPLORED);
+		}
+	}
+	
+	void printPath() {
+		for (int i = 0; i < path.size(); i++) {
+			System.out.println( "(" + path.get(i).row + ", " + path.get(i).col + ")");
 		}
 	}
 }

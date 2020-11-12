@@ -1,6 +1,7 @@
 package dang.han.cs146.project3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
@@ -13,7 +14,7 @@ public class Maze {
 	int visitedCells;
 	
 	Node[][] maze;
-	private int size;
+	int size;
 	
 	public Maze(int size) {
 		this.size = size;
@@ -21,18 +22,24 @@ public class Maze {
 		initializeMaze();
 	}
 	
-	
 	/**
-	 * initializes all nodes in the array
+	 * Initializes all nodes in maze[][].
 	 */
-	private void initializeMaze() {
+	void initializeMaze() {
 		
 		for (int i=0; i<size; i++) {
 			for (int j=0; j<size; j++) {
 				maze[i][j] = new Node(i, j);	
-				
 			}
 		}
+	}
+	
+	/*
+	 * Removes the wall between two Nodes and adds each other to their ArrayList<Node> connections
+	 */
+	void removeWall(Node thisNode, Node thatNode) {
+		thisNode.removeWallBtwn(thatNode);
+		thatNode.removeWallBtwn(thisNode);
 	}
 	
 	/**
@@ -107,14 +114,14 @@ public class Maze {
 					Node randCell = wallsIntact.get(randValue);
 					
 					// knock down the wall between it and CurrentCell
-					randCell.removeWallBtwn(currentCell);
-					currentCell.removeWallBtwn(randCell);
+					removeWall(randCell, currentCell);
 					
 					// push CurrentCell location on the CellStack
 					cellStack.push(currentCell);
 					
 					// make the new cell CurrentCell
-					currentCell = wallsIntact.get(randValue);
+					currentCell = randCell;
+					
 					// add 1 to Visited Cells
 					visitedCells++;
 				}
@@ -128,16 +135,46 @@ public class Maze {
 		}
 	}
 	
+	/*
+	 * prints ASCII maze 
+	 */
 	
-	public void connectHorizontal(Node right, Node left) {
-		right.connectEast(left);
-		left.connectWest(right);
+	public void printMaze() {
+		
+		String[][] charMaze = new String[size*2-1][size*2-1];
+		
+		for (int row = 0; row < charMaze.length; row++) {
+			for (int col = 0; col < charMaze.length; col++) {
+				
+				// "even" rows
+				if (row%2 == 0) {
+					if (col%2 == 0) {
+						charMaze[row][col] = "+";
+					} else {
+						charMaze[row][col] = "-";
+					}
+				}
+				
+				// odd rows
+				if (row%2 == 1) {
+					if (col%2 == 0) {
+						charMaze[row][col] = "|";
+					} else {
+						charMaze[row][col] = " ";
+					}
+				}
+				
+				charMaze[0][1] = " ";
+				System.out.print(charMaze[row][col]);
+				
+			}
+			System.out.println(" ");
+		}
+		
 	}
 	
-	public void connectVertical(Node top, Node bottom) {
-		top.connectSouth(bottom);
-		bottom.connectNorth(top);
-	}
+	
+		
 	
 	/*
 	 * Enough walls must be removed so that every room (therefore also

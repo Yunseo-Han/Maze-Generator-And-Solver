@@ -17,10 +17,10 @@ public class Node {
 	
 	int row;
 	int col;
-	private boolean hasNorthWall;
-	private boolean hasSouthWall;
-	private boolean hasEastWall;
-	private boolean hasWestWall;
+	boolean hasNorthWall;
+	boolean hasSouthWall;
+	boolean hasEastWall;
+	boolean hasWestWall;
 	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
 	//ArrayList<Node> neighbors;			// Neighbors of Node. NOTE: isn't necessarily have an edge/connection to this Node
 	//private int size; 		// size of the maze this node is in
@@ -48,7 +48,6 @@ public class Node {
 		//neighbors = new ArrayList<>();
 		discoverStatus = Status.UNDISCOVERED;
 		predecessor = null;
-		this.size = size;
 	}
 	
 	
@@ -70,6 +69,14 @@ public class Node {
 			return true;
 		}
 		return false;
+	}
+	
+	public void setDiscoverTime(int time) {
+		discoverTime = time;
+	}
+	
+	public void setFinishTime(int time) {
+		finishTime = time;
 	}
 	
 	
