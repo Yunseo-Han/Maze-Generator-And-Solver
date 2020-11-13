@@ -50,7 +50,9 @@ public class Node {
 		predecessor = null;
 	}
 	
-	
+	public String getLocation() {
+		return "(" + row + ", " + col + ")";
+	}
 	
 	public void setStatus(Status discoverStatus) {
 		this.discoverStatus = discoverStatus;

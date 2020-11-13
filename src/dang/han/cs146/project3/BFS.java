@@ -13,13 +13,12 @@ public class BFS {
 	ArrayList<Node> path = new ArrayList<>();
 	
 	/*
-	 * This method implements Breadth-First Search. 
-	 * 
-	 * NOTE: NOT FINISHED. HAVE NOT FIGURED OUT HOW TO GET THE SHORTEST PATH
-	 * 
-	 * 11/10/2020 01:00 -- added destination (line 20 and 48) 
+	 * This method implementes Breadth-First Search to find the shortest path from source Node to destination Node. 
+	 * @param maze, 2D representation of the maze 
+	 * @param source, starting point/Node 
+	 * @param destination, ending point/Node
 	 */
-	void search(Node[][] maze, Node source, Node destination) {
+	void solveMaze(Node[][] maze, Node source, Node destination) {
 		
 		//initialize all vertices 
 		for (int row = 0; row < maze.length; row++) {
@@ -46,8 +45,6 @@ public class BFS {
 					currNode.setDistance(exploredNode.distance + 1);
 					currNode.setPredecessor(exploredNode);
 					queue.add(currNode);
-					
-					path.add(currNode);
 					// destination found
 					if (currNode == destination) {
 						return;
@@ -59,16 +56,26 @@ public class BFS {
 	}
 	
 	/*
-	 * Prints the shortest path
+	 * Recursively prints and stores the "(row, col)" for each Node in the shortest path in the correct order.
+	 * @param source
+	 * @param destination
 	 */
-	void printPath(Node[][]maze, Node source, Node destination) {
-		if (destination.equals(source)) {
-			System.out.print("(" + source.row + ", " + source.col + ")");
+	void findShortestPath(Node[][]maze, Node source, Node destination) {
+		if (destination.equals(source)) {	//base case, source node
+			System.out.print(source.getLocation());
+			path.add(source);
 		} else if (destination.predecessor == null) {
 			System.out.print("no path from" + source + " to " + destination + "exists");
 		} else {
-			printPath(maze, source, destination.predecessor);
-			System.out.print("(" + destination.row + ", " + destination.col + ")");
+			findShortestPath(maze, source, destination.predecessor);	//print the predecessor
+			path.add(destination);
+			System.out.print(destination.getLocation());
 		}
 	}
+	
+	ArrayList<Node> getPath() {
+		return path;
+	}
+	
+	
 }

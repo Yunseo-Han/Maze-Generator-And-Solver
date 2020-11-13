@@ -136,7 +136,7 @@ public class Maze {
 	}
 	
 	/*
-	 * prints ASCII maze 
+	 * Prints ASCII of the maze.
 	 */
 	
 	public void printMaze() {
@@ -189,7 +189,7 @@ public class Maze {
 	 */
 	public boolean fullyConnected(Node [][] maze) {
 		BFS bfs = new BFS();
-		bfs.search(maze, maze[0][0], maze[maze.length-1][maze[0].length-1]);	// not sure if adding discovery node ruins the code
+		bfs.solveMaze(maze, maze[0][0], maze[maze.length-1][maze[0].length-1]);	// not sure if adding discovery node ruins the code
 		boolean isFullyConnected = true;
 		for (int row = 0; row < maze.length; row++) {
 			for (int col = 0; col < maze.length; col++) {
