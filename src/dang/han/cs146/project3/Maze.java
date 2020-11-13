@@ -26,10 +26,15 @@ public class Maze {
 	 * Initializes all nodes in maze[][].
 	 */
 	void initializeMaze() {
+		Node currNode;
 		
 		for (int i=0; i<size; i++) {
 			for (int j=0; j<size; j++) {
-				maze[i][j] = new Node(i, j);	
+				maze[i][j] = new Node(i, j);
+				currNode = maze[i][j];
+				currNode.setStatus(Status.UNDISCOVERED);
+				currNode.distance = Integer.MAX_VALUE;
+				currNode.predecessor = null;
 			}
 		}
 	}
@@ -73,7 +78,7 @@ public class Maze {
 	
 	
 	/**
-	 * checks if the cell being added as neighbor is valid
+	 * checks if the cell valid. cells are not valid if its index is negative or larger than maze size
 	 * @param i 
 	 * @param j
 	 * @return true if cell is safe to be added as a neighbor

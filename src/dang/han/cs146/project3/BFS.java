@@ -28,7 +28,7 @@ public class BFS {
 				currNode.distance = Integer.MAX_VALUE;
 				currNode.predecessor = null;
 			}
-		}
+		}	// Note: this can be done in the maze class initializeMaze()
 		source.discoverStatus = Status.VISITED;	
 		source.distance = 0;
 		source.predecessor = null;
