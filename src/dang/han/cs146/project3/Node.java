@@ -11,9 +11,7 @@ import java.util.ArrayList;
  */
 public class Node {
 	
-	enum Status {
-		UNDISCOVERED, VISITED, EXPLORED;
-	}
+	enum Status {	UNDISCOVERED, VISITED, EXPLORED;	}
 	
 	int row;
 	int col;
@@ -21,20 +19,18 @@ public class Node {
 	boolean hasSouthWall;
 	boolean hasEastWall;
 	boolean hasWestWall;
-	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
-	//ArrayList<Node> neighbors;			// Neighbors of Node. NOTE: isn't necessarily have an edge/connection to this Node
-	//private int size; 		// size of the maze this node is in
-
-	
 	Status discoverStatus;
+	
+	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
 	
 	//BFS properties
 	Node predecessor; 
 	int distance;
 	
 	//DFS properties 
-	private int discoverTime;
-	private int finishTime;
+	int discoverTime;
+	int finishTime;
+	
 	
 	
 	public Node(int row, int col) {
@@ -44,94 +40,17 @@ public class Node {
 		this.hasSouthWall = true;
 		this.hasEastWall = true;
 		this.hasWestWall = true;
-		adjList = new ArrayList<>();
-		//neighbors = new ArrayList<>();
-		discoverStatus = Status.UNDISCOVERED;
-		predecessor = null;
-	}
-	
-	public String getLocation() {
-		return "(" + row + ", " + col + ")";
-	}
-	
-	public void setStatus(Status discoverStatus) {
-		this.discoverStatus = discoverStatus;
-	}
-	
-	public void setDistance(int distance) {
-		this.distance = distance;
-	}
-	
-	public void setPredecessor(Node cell) {
-		predecessor = cell;
-	}
-	
-	public boolean allWallsIntact() {
-		if (this.hasNorthWall==true && this.hasSouthWall==true && this.hasEastWall==true && this.hasWestWall==true) {
-			return true;
-		}
-		return false;
-	}
-	
-	public void setDiscoverTime(int time) {
-		discoverTime = time;
-	}
-	
-	public void setFinishTime(int time) {
-		finishTime = time;
-	}
-	
-	
-	public void connectNorth(Node cell) {
-		hasNorthWall = false;
-		adjList.add(cell); 
-	}
-	
-	
-	public void connectSouth(Node cell) {
-		this.hasSouthWall = false;
-		adjList.add(cell);
-	}
-	
-	
-	public void connectEast(Node cell) {
-		this.hasEastWall = false;
-		adjList.add(cell);
-	}
-	
-	
-	public void connectWest(Node cell) {
-		this.hasWestWall = false;
-		adjList.add(cell);
-	}
-
-	public void removeWallBtwn(Node that) {
+		this.discoverStatus = Status.UNDISCOVERED;
 		
-		// Node that is north of this Node
-		if (that.row == this.row - 1) {
-			hasNorthWall = false;
-			connectNorth(that);
-		}
+		this.adjList = new ArrayList<>();
 		
-		// Node that is south of this Node
-		else if (that.row == this.row + 1) {
-			hasSouthWall = false;
-			connectSouth(that);
-		}
+		this.predecessor = null;
+		this.distance = Integer.MAX_VALUE;
 		
-		// Node that is east of this Node
-		else if (that.col == this.col + 1) {
-			hasEastWall = false;
-			connectEast(that);
-		}
-
-		// Node that is west of this Node
-		else if (that.col == this.col - 1) {
-			hasEastWall = false;
-			connectWest(that);
-		}
-			
+		this.discoverTime = -1;
+		this.finishTime = -1;
 	}
+	
 	
 	
 	public boolean isConntectedTo(Node that) {
@@ -159,5 +78,100 @@ public class Node {
 		
 		return false;
 	}
+	
+	
+	
+	public void removeWallBtwn(Node that) {
+		// Node that is north of this Node
+		if (that.row == this.row - 1) {
+			hasNorthWall = false;
+			connectNorth(that);
+		}
+		
+		// Node that is south of this Node
+		else if (that.row == this.row + 1) {
+			hasSouthWall = false;
+			connectSouth(that);
+		}
+		
+		// Node that is east of this Node
+		else if (that.col == this.col + 1) {
+			hasEastWall = false;
+			connectEast(that);
+		}
+
+		// Node that is west of this Node
+		else if (that.col == this.col - 1) {
+			hasEastWall = false;
+			connectWest(that);
+		}
+	}
+	
+	
+	
+	/**
+	 * @return true if if this Node has north, south, east, and west walls intact
+	 */
+	public boolean allWallsIntact() {
+		if (this.hasNorthWall==true && this.hasSouthWall==true && this.hasEastWall==true && this.hasWestWall==true) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	public void connectNorth(Node cell) {
+		hasNorthWall = false;
+		adjList.add(cell); 
+	}
+	
+	public void connectSouth(Node cell) {
+		this.hasSouthWall = false;
+		adjList.add(cell);
+	}	
+	
+	public void connectEast(Node cell) {
+		this.hasEastWall = false;
+		adjList.add(cell);
+	}
+	
+	public void connectWest(Node cell) {
+		this.hasWestWall = false;
+		adjList.add(cell);
+	}
+	
+	
+	
+	// getters and setters *************************************************************
+	
+	public String getLocation() {
+		return "(" + row + ", " + col + ")";
+	}
+	
+	
+	public void setStatus(Status discoverStatus) {
+		this.discoverStatus = discoverStatus;
+	}
+	
+	
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+	
+	public void setPredecessor(Node cell) {
+		predecessor = cell;
+	}
+
+	
+	public void setDiscoverTime(int time) {
+		discoverTime = time;
+	}
+	
+	public void setFinishTime(int time) {
+		finishTime = time;
+	}
+	
+	
 	
 }

@@ -27,7 +27,8 @@ class MazeTest {
 	
 	void test4x4BFS(){
 		Maze maze4x4 = new Maze(4);
-		maze4x4.initializeMaze();
+		//maze4x4.initializeMaze();			// maze gets initialized within constructor
+		maze4x4.printMaze();
 		
 		maze4x4.removeWall(maze4x4.maze[0][0], maze4x4.maze[0][1]);
 		maze4x4.removeWall(maze4x4.maze[0][1], maze4x4.maze[0][2]);
@@ -40,6 +41,8 @@ class MazeTest {
 		maze4x4.removeWall(maze4x4.maze[3][2], maze4x4.maze[2][2]);
 		maze4x4.removeWall(maze4x4.maze[2][3], maze4x4.maze[2][2]);
 		maze4x4.removeWall(maze4x4.maze[2][3], maze4x4.maze[3][3]);
+		
+		maze4x4.printMaze();
 		
 		ArrayList<Node> expectedPath = new ArrayList<>();
 		expectedPath.add(maze4x4.maze[0][0]);
@@ -65,5 +68,5 @@ class MazeTest {
 		
 	}
 
-
+	
 }

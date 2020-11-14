@@ -18,12 +18,10 @@ public class DFS {
 	 * @param destination
 	 */
 	public void solveMaze(Node[][] maze) {
-		int totalCells = maze.length * maze[0].length;
 		Node destination = maze[maze.length-1][maze.length-1];
 		Node currentCell = maze[0][0];
 		int step = 0;
 
-		
 		currentCell.setStatus(Status.VISITED);
 		currentCell.setDiscoverTime(step);
 		step++;
@@ -32,13 +30,13 @@ public class DFS {
 		while (!cellStack.empty()) {
 			currentCell = cellStack.pop();
 			path.add(currentCell);
-			
 			if (currentCell == destination) {	// maybe this has to go in the end
 				return;
 			}
 			
 			List<Node> currAdjList = currentCell.adjList;
 			
+			// add all undiscovered connections of currentCell to stack
 			for (int i=0; i<currAdjList.size(); i++) {
 				Node nextCell = currAdjList.get(i);
 				if(nextCell.discoverStatus == Status.UNDISCOVERED) {
@@ -48,7 +46,8 @@ public class DFS {
 					cellStack.push(nextCell);
 				}		
 			}
-			currentCell.setStatus(Status.EXPLORED);
+			
+			currentCell.setStatus(Status.EXPLORED);	// or maybe these three lines need to go in the front
 			currentCell.setFinishTime(step);
 			step++;
 		}
