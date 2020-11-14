@@ -15,6 +15,7 @@ public class Maze {
 	
 	Node[][] maze;
 	int size;
+	Random rand; 
 	
 	
 	
@@ -22,38 +23,38 @@ public class Maze {
 		this.size = size;
 		maze = new Node[size][size];
 		initializeMaze();
+		rand = new Random();
+		rand.setSeed(10);	// helps generate the same "random" maze
 	}
 	
 	
-	
 	/**
-	 * creates a creates a maze with size*size cells
+	 * Creates a creates a maze with size*size cells
 	 * @param size
 	 */
-	public void createMaze(int size) {
+	public void createMaze() {
 		Stack<Node> cellStack = new Stack<>();
 		int totalCells = size*size;
 		Node currentCell = maze[0][0];
 		int visitedCells = 1;
 		
-		
 		while (visitedCells < totalCells) {
+
 			// find all neighbors of CurrentCell with all walls intact
-			List<Node> neighbors = findNeighbors(currentCell);
-			List<Node> wallsIntact = new ArrayList<>();
+			ArrayList<Node> neighbors = findNeighbors(currentCell);
+			ArrayList<Node> wallsIntact = new ArrayList<>();
+			
 			for (int i=0; i<neighbors.size(); i++) {
+				
 				if (neighbors.get(i).allWallsIntact()) {
 					wallsIntact.add(neighbors.get(i));
-				}
-				
-			// if one or more found, choose one Node at random
-				if (wallsIntact.size() > 0) {
-					Random rand = new Random();
-					rand.setSeed(20);	// helps generate the same "random" maze
-					int randValue = rand.nextInt(neighbors.size());
+				}							
+			}
+				// if one or more found, choose one Node at random
+				if (wallsIntact.size() >= 1) {
 					
+					int randValue = rand.nextInt(wallsIntact.size());					
 					Node randCell = wallsIntact.get(randValue);
-					
 					// knock down the wall between it and CurrentCell
 					removeWall(randCell, currentCell);
 					
@@ -66,13 +67,13 @@ public class Maze {
 					// add 1 to Visited Cells
 					visitedCells++;
 				}
-				else {
+				else if (cellStack.size() != 0){
 					//pop the most recent cell entry off the Cell Stack
 					//make it Current Cell
 					currentCell = cellStack.pop();
 				}
 						
-			}
+			
 		}
 	}
 	
@@ -154,35 +155,6 @@ public class Maze {
 	}
 	
 	
-	
-	/**
-	 * Enough walls must be removed so that every room (therefore also
-	 * the finishing room) is reachable from the starting room. 
-	 * 
-	 * This method uses BFS to check the discovery status of each node.
-	 * It will return false if a Node in the maze is undiscovered. 
-	 * 
-	 * @param maze
-	 * @return whether the maze is fully connected or not
-	 * 
-	 * NOTE: HAS NOT BEEN TESTED YET
-	 */
-	public boolean fullyConnected(Node [][] maze) {
-		BFS bfs = new BFS();
-		bfs.solveMaze(maze, maze[0][0], maze[maze.length-1][maze[0].length-1]);	// not sure if adding discovery node ruins the code
-		boolean isFullyConnected = true;
-		for (int row = 0; row < maze.length; row++) {
-			for (int col = 0; col < maze.length; col++) {
-				if (maze[row][col].discoverStatus == Status.UNDISCOVERED) {
-					isFullyConnected = false;
-				}
-			}
-		}
-		return isFullyConnected;
-	}
-	
-	
-	
 	/**
 	 * Initialize all nodes in maze[][] by assigning i and j indexes.
 	 */
@@ -213,9 +185,9 @@ public class Maze {
 	 * @param node
 	 * @return an arraylist of neighboring nodes
 	 */
-	private List<Node> findNeighbors(Node node){
+	ArrayList<Node> findNeighbors(Node node){
 		
-		List<Node> neighbors = new ArrayList<>();
+		ArrayList<Node> neighbors = new ArrayList<>();
 		// if statements below checks if the neighbor being added is a cell that exists to account for edges of the maze
 		
 		// north cell
@@ -230,6 +202,7 @@ public class Maze {
 		if (checkCell(node.row-1, node.col)) {
 			neighbors.add(maze[node.row-1][node.col]);
 		}
+		// east cell
 		if (checkCell(node.row+1, node.col)) {
 			neighbors.add(maze[node.row+1][node.col]);
 		}
