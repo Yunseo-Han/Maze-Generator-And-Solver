@@ -103,6 +103,20 @@ class MazeTest {
 			assertEquals(expectedPath.get(i).getLocation(), bfs.path.get(i).getLocation());
 		}
 		
+		
+		
+	}
+	
+	@Test
+	void findNeighborsDFS() {
+		Maze maze4x4 = new Maze(4);
+		
+		DFS dfs = new DFS();
+		dfs.solveMaze(maze4x4.maze);
+		for (Node e: dfs.path) {
+			System.out.println(e.row + " " + e.col);
+		}
+		dfs.shortestPath(dfs.path);
 	}
 
 	

@@ -9,7 +9,7 @@ import dang.han.cs146.project3.Node.Status;
 
 public class DFS {
 	private Stack<Node> cellStack = new Stack<>();
-	private List<Node> path = new ArrayList<>();
+	List<Node> path = new ArrayList<>();
 	
 	/**
 	 * solves maze using DFS iterative algorithm
@@ -43,14 +43,38 @@ public class DFS {
 					nextCell.setStatus(Status.VISITED);
 					nextCell.setDiscoverTime(step);
 					step++;
+					nextCell.setPredecessor(currentCell);
 					cellStack.push(nextCell);
 				}		
 			}
 			
 			currentCell.setStatus(Status.EXPLORED);	// or maybe these three lines need to go in the front
-			currentCell.setFinishTime(step);
 			step++;
 		}
+	}
+	
+	public List<Node> shortestPath(List<Node> path){
+		List<Node> shortest = new ArrayList<>();
+		
+		int index = path.size()-1;
+		Node currNode = path.get(index);
+		Node prevNode = path.get(index-1);
+		
+		shortest.add(currNode);		// destination added to shortestPath
+		while (index>=0) {
+			if (currNode.predecessor != prevNode) {
+				index--;
+				prevNode = path.get(index-1);
+			}
+			else {
+				index--;
+				currNode = path.get(index);
+				prevNode = path.get(index-1);
+				shortest.add(currNode);
+				System.out.println(currNode.row + " " + currNode.col);
+			}
+		}
+		 return shortest;
 	}
 
 }
