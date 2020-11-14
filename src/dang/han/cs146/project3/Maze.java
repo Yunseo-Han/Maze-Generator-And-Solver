@@ -83,7 +83,7 @@ public class Maze {
 	 */
 	public void printMaze() {
 		
-		String[][] charMaze = new String[size*2-1][size*2-1];
+		String[][] charMaze = new String[size*2+1][size*2+1];
 		
 		Node currNode = null;
 		
@@ -109,7 +109,7 @@ public class Maze {
 							charMaze[row][col] = "-";
 						}
 						else {
-							charMaze[row][col] = " ";
+							charMaze[row][col] = " ";	// will be replaced with numbers or #s later on 
 						}
 					}	
 				}

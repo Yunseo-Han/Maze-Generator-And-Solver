@@ -36,8 +36,12 @@ class MazeTest {
 		maze4x4.removeWall(maze4x4.maze[1][0], maze4x4.maze[2][0]);
 		maze4x4.removeWall(maze4x4.maze[2][0], maze4x4.maze[2][1]);
 		maze4x4.removeWall(maze4x4.maze[1][1], maze4x4.maze[2][1]);
+		maze4x4.removeWall(maze4x4.maze[1][2], maze4x4.maze[1][3]);
+		maze4x4.removeWall(maze4x4.maze[1][3], maze4x4.maze[2][3]);
 		maze4x4.removeWall(maze4x4.maze[3][1], maze4x4.maze[2][1]);
+		maze4x4.removeWall(maze4x4.maze[3][0], maze4x4.maze[3][1]);
 		maze4x4.removeWall(maze4x4.maze[3][1], maze4x4.maze[3][2]);
+		maze4x4.removeWall(maze4x4.maze[3][2], maze4x4.maze[3][3]);
 		maze4x4.removeWall(maze4x4.maze[3][2], maze4x4.maze[2][2]);
 		maze4x4.removeWall(maze4x4.maze[2][3], maze4x4.maze[2][2]);
 		maze4x4.removeWall(maze4x4.maze[2][3], maze4x4.maze[3][3]);
