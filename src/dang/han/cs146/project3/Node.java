@@ -45,7 +45,7 @@ public class Node {
 		this.adjList = new ArrayList<>();
 		
 		this.predecessor = null;
-		this.distance = Integer.MAX_VALUE;
+		this.distance = -1;
 		
 		this.discoverTime = -1;
 		this.finishTime = -1;

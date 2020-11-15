@@ -31,19 +31,15 @@ class MazeTest {
 	}
 	
 	@Test
-	void randomPerfectMaze8x8() {
-		System.out.println("Random perfect maze with size 8");
-		Maze testMaze = new Maze(8);
-		testMaze.createMaze();
-		testMaze.printMaze();
-	}
-	
-	@Test
 	void findNeighborsTest() {
 		Maze testMaze = new Maze(4);
 		ArrayList<Node> neighbors = testMaze.findNeighbors(testMaze.maze[3][3]);
-		for (int i = 0; i < neighbors.size(); i++) {
-			System.out.println(neighbors.get(i).getLocation());
+		//Expected order: north, south, west, east
+		ArrayList<Node> expected = new ArrayList<>();
+		expected.add(testMaze.maze[3][2]);
+		expected.add(testMaze.maze[2][3]);
+ 		for (int i = 0; i < neighbors.size(); i++) {
+ 			assertEquals(expected.get(i), neighbors.get(i));
 		}
 	}
 	
@@ -103,12 +99,23 @@ class MazeTest {
 			assertEquals(expectedPath.get(i).getLocation(), bfs.path.get(i).getLocation());
 		}
 		
-		
+		maze4x4.printBFSMazeSteps();
 		
 	}
 	
 	@Test
-	void findNeighborsDFS() {
+	/*
+	 *  + +-+-+-+
+	 *  |     | |
+	 *  + +-+-+ +
+	 *  | | |   |
+	 *  + + +-+ +
+	 *  |   |   |
+	 *  +-+ + + +
+	 *  |     | |
+	 *  +-+-+-+ +
+	 */
+	void test4x4DFS() {
 		Maze maze4x4 = new Maze(4);
 		
 		maze4x4.removeWall(maze4x4.maze[0][0], maze4x4.maze[0][1]);

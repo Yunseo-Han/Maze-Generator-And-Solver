@@ -33,6 +33,7 @@ public class BFS {
 		source.distance = 0;
 		source.predecessor = null;
 		queue.add(source);
+		int step = 1;
 		
 		// Queue has BFS order 
 		while(queue.size() != 0) {
@@ -40,9 +41,9 @@ public class BFS {
 			ArrayList<Node> currNodeConnections = exploredNode.adjList;
 			for (int i = 0; i < currNodeConnections.size(); i++) {
 				Node currNode = currNodeConnections.get(i);
-				if (currNode.discoverStatus == Status.UNDISCOVERED) {
+				if (currNode.discoverStatus == Status.UNDISCOVERED && currNode.discoverStatus != Status.VISITED) {
 					currNode.setStatus(Status.VISITED);
-					currNode.setDistance(exploredNode.distance + 1);
+					currNode.setDistance(step++);
 					currNode.setPredecessor(exploredNode);
 					queue.add(currNode);
 					// destination found

@@ -154,6 +154,81 @@ public class Maze {
 		
 	}
 	
+public void printBFSMazeSteps() {
+		
+		String[][] charMaze = new String[size*2+1][size*2+1];
+		
+		Node currNode = null;
+		
+		for (int row = 0; row < charMaze.length; row++) {
+			for (int col = 0; col < charMaze.length; col++) {
+				
+				// "even" rows
+				if (row%2 == 0) {
+					if (col%2 == 0) {	
+						charMaze[row][col] = "+";
+					} 
+					else if (row == charMaze.length-1){		// bottom row of walls all gets printed
+						charMaze[row][col] = "-";
+					}
+					else {	// case: row is odd and is not the last row
+						
+						// calculate the maze cell equivalent position of this wall (top wall of cell) 
+						// wall (0, 1) == cell (0, 0) => (1+1)/2-1=0 ; wall (4, 5) == cell (2, 2) => (5+1)/2-1=2 
+						int mazeRowIndex = row/2;							
+						int mazeColIndex = (col+1)/2 -1;
+						
+						if (this.maze[mazeRowIndex][mazeColIndex].hasNorthWall) {
+							charMaze[row][col] = "-";
+						}
+						else {
+							charMaze[row][col] = " ";	// will be replaced with numbers or #s later on 
+						}
+					}	
+				}
+				
+				// odd rows
+				if (row%2 == 1) {
+					int mazeRowIndex = (row+1)/2-1;							
+					int mazeColIndex = col/2;
+					if (col%2 == 0 && col==charMaze.length-1) {		// last column of walls all gets printed
+						charMaze[row][col] = "|";
+					} 
+					else if (col%2 == 0) {		// case: column is even and is not the last row
+						
+						if (this.maze[mazeRowIndex][mazeColIndex].hasWestWall) {
+							charMaze[row][col] = "|";
+						}
+						else {
+							charMaze[row][col] = " ";
+						}
+					}
+					else if (maze[mazeRowIndex][mazeColIndex].distance != -1 
+							&& !maze[mazeRowIndex][mazeColIndex].discoverStatus.equals(Status.UNDISCOVERED) ){
+						charMaze[row][col] = Integer.toString(maze[mazeRowIndex][mazeColIndex].distance%10);
+					} else {
+						charMaze[row][col] = " ";
+					}
+				}
+				// made a separate loop for printing because charmaze[0][1] = " "; was happening every loop here
+				//System.out.print(charMaze[row][col]);
+				
+			}
+			//System.out.println(" ");
+		}
+		
+		charMaze[0][1] = " ";
+		charMaze[charMaze.length-1][charMaze.length-2] = " ";
+		
+		for (int row = 0; row < charMaze.length; row++) {
+			for (int col = 0; col < charMaze.length; col++) {
+				System.out.print(charMaze[row][col]);
+			}
+			System.out.println(" ");
+		}
+		
+	}
+	
 	
 	/**
 	 * Initialize all nodes in maze[][] by assigning i and j indexes.
