@@ -8,8 +8,10 @@ import java.util.Stack;
 import dang.han.cs146.project3.Node.Status;
 
 public class DFS {
+	
 	private Stack<Node> cellStack = new Stack<>();
-	ArrayList<Node> path = new ArrayList<>();
+	ArrayList<Node> shortestPath = new ArrayList<>();
+	ArrayList<Node>	truePath = new ArrayList<>();
 	
 	/**
 	 * solves maze using DFS iterative algorithm
@@ -23,14 +25,18 @@ public class DFS {
 		int step = 0;
 
 		currentCell.setStatus(Status.VISITED);
-		currentCell.setDiscoverTime(step);
-		step++;
+		
+		
 		cellStack.push(currentCell);
+		truePath.add(currentCell);			
 		
 		while (!cellStack.empty()) {
 			currentCell = cellStack.pop();
-			path.add(currentCell);
-			if (currentCell == destination) {	// maybe this has to go in the end
+			currentCell.setStep(step); 
+			truePath.add(currentCell);
+			
+			
+			if (currentCell == destination) {	
 				return;
 			}
 			
@@ -41,38 +47,36 @@ public class DFS {
 				Node nextCell = currAdjList.get(i);
 				if(nextCell.discoverStatus == Status.UNDISCOVERED) {
 					nextCell.setStatus(Status.VISITED);
-					nextCell.setDiscoverTime(step);
-					step++;
 					nextCell.setPredecessor(currentCell);
 					cellStack.push(nextCell);
 				}		
 			}
 			
-			currentCell.setStatus(Status.EXPLORED);	// or maybe these three lines need to go in the front
+			currentCell.setStatus(Status.EXPLORED);	
 			step++;
 		}
 	}
 	
 	/*
-	 * Recursively prints and stores the "(row, col)" for each Node in the shortest path in the correct order.
+	 * Recursively prints and stores the "(row, col)" for each Node in the shortest shortestPath in the correct order.
 	 * @param source
 	 * @param destination
 	 */
 	void findShortestPath(Node[][]maze, Node source, Node destination) {
 		if (destination.equals(source)) {	//base case, source node
 			System.out.print(source.getLocation());
-			path.add(source);
+			shortestPath.add(source);
 		} else if (destination.predecessor == null) {
-			System.out.print("no path from" + source + " to " + destination + "exists");
+			System.out.print("no shortestPath from" + source + " to " + destination + "exists");
 		} else {
 			findShortestPath(maze, source, destination.predecessor);	//print the predecessor
-			path.add(destination);
+			shortestPath.add(destination);
 			System.out.print(destination.getLocation());
 		}
 	}
 	
 	ArrayList<Node> getPath() {
-		return path;
+		return shortestPath;
 	}
 
 }

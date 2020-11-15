@@ -23,14 +23,8 @@ public class Node {
 	
 	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
 	
-	//BFS properties
 	Node predecessor; 
-	int distance;
-	
-	//DFS properties 
-	int discoverTime;
-	int finishTime;
-	
+	int step;
 	
 	
 	public Node(int row, int col) {
@@ -45,10 +39,7 @@ public class Node {
 		this.adjList = new ArrayList<>();
 		
 		this.predecessor = null;
-		this.distance = -1;
-		
-		this.discoverTime = -1;
-		this.finishTime = -1;
+		this.step = -1;
 	}
 	
 	
@@ -155,21 +146,12 @@ public class Node {
 	}
 	
 	
-	public void setDistance(int distance) {
-		this.distance = distance;
+	public void setStep(int step) {
+		this.step = step;
 	}
 	
 	public void setPredecessor(Node cell) {
 		predecessor = cell;
-	}
-
-	
-	public void setDiscoverTime(int time) {
-		discoverTime = time;
-	}
-	
-	public void setFinishTime(int time) {
-		finishTime = time;
 	}
 	
 	
