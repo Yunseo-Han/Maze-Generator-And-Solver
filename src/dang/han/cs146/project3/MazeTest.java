@@ -111,12 +111,43 @@ class MazeTest {
 	void findNeighborsDFS() {
 		Maze maze4x4 = new Maze(4);
 		
+		maze4x4.removeWall(maze4x4.maze[0][0], maze4x4.maze[0][1]);
+		maze4x4.removeWall(maze4x4.maze[0][1], maze4x4.maze[0][2]);
+		maze4x4.removeWall(maze4x4.maze[1][0], maze4x4.maze[0][0]);
+		maze4x4.removeWall(maze4x4.maze[1][0], maze4x4.maze[2][0]);
+		maze4x4.removeWall(maze4x4.maze[2][0], maze4x4.maze[2][1]);
+		maze4x4.removeWall(maze4x4.maze[1][1], maze4x4.maze[2][1]);
+		maze4x4.removeWall(maze4x4.maze[1][2], maze4x4.maze[1][3]);
+		maze4x4.removeWall(maze4x4.maze[1][3], maze4x4.maze[2][3]);
+		maze4x4.removeWall(maze4x4.maze[3][1], maze4x4.maze[2][1]);
+		maze4x4.removeWall(maze4x4.maze[3][0], maze4x4.maze[3][1]);
+		maze4x4.removeWall(maze4x4.maze[3][1], maze4x4.maze[3][2]);
+		maze4x4.removeWall(maze4x4.maze[3][2], maze4x4.maze[2][2]);
+		maze4x4.removeWall(maze4x4.maze[2][3], maze4x4.maze[2][2]);
+		maze4x4.removeWall(maze4x4.maze[2][3], maze4x4.maze[3][3]);
+		
+		System.out.println("DFS Test 4x4");
+		maze4x4.printMaze();
+		
+		ArrayList<Node> expectedPath = new ArrayList<>();
+		expectedPath.add(maze4x4.maze[0][0]);
+		expectedPath.add(maze4x4.maze[1][0]);
+		expectedPath.add(maze4x4.maze[2][0]);
+		expectedPath.add(maze4x4.maze[2][1]);
+		expectedPath.add(maze4x4.maze[3][1]);
+		expectedPath.add(maze4x4.maze[3][2]);
+		expectedPath.add(maze4x4.maze[2][2]); 
+		expectedPath.add(maze4x4.maze[2][3]); 
+		expectedPath.add(maze4x4.maze[3][3]);
+		
 		DFS dfs = new DFS();
 		dfs.solveMaze(maze4x4.maze);
-		for (Node e: dfs.path) {
-			System.out.println(e.row + " " + e.col);
+		for (int i = 0; i < expectedPath.size(); i++) {
+			assertEquals(expectedPath.get(i).getLocation(), dfs.path.get(i).getLocation());
 		}
-		dfs.shortestPath(dfs.path);
+		dfs.findShortestPath(maze4x4.maze, maze4x4.maze[0][0], maze4x4.maze[maze4x4.size-1][maze4x4.size-1]);
+		System.out.println("\n");
+
 	}
 
 	

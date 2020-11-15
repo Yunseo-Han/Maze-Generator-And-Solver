@@ -9,7 +9,7 @@ import dang.han.cs146.project3.Node.Status;
 
 public class DFS {
 	private Stack<Node> cellStack = new Stack<>();
-	List<Node> path = new ArrayList<>();
+	ArrayList<Node> path = new ArrayList<>();
 	
 	/**
 	 * solves maze using DFS iterative algorithm
@@ -53,28 +53,26 @@ public class DFS {
 		}
 	}
 	
-	public List<Node> shortestPath(List<Node> path){
-		List<Node> shortest = new ArrayList<>();
-		
-		int index = path.size()-1;
-		Node currNode = path.get(index);
-		Node prevNode = path.get(index-1);
-		
-		shortest.add(currNode);		// destination added to shortestPath
-		while (index>=0) {
-			if (currNode.predecessor != prevNode) {
-				index--;
-				prevNode = path.get(index-1);
-			}
-			else {
-				index--;
-				currNode = path.get(index);
-				prevNode = path.get(index-1);
-				shortest.add(currNode);
-				System.out.println(currNode.row + " " + currNode.col);
-			}
+	/*
+	 * Recursively prints and stores the "(row, col)" for each Node in the shortest path in the correct order.
+	 * @param source
+	 * @param destination
+	 */
+	void findShortestPath(Node[][]maze, Node source, Node destination) {
+		if (destination.equals(source)) {	//base case, source node
+			System.out.print(source.getLocation());
+			path.add(source);
+		} else if (destination.predecessor == null) {
+			System.out.print("no path from" + source + " to " + destination + "exists");
+		} else {
+			findShortestPath(maze, source, destination.predecessor);	//print the predecessor
+			path.add(destination);
+			System.out.print(destination.getLocation());
 		}
-		 return shortest;
+	}
+	
+	ArrayList<Node> getPath() {
+		return path;
 	}
 
 }
