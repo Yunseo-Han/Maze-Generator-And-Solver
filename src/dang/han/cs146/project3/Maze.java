@@ -156,12 +156,30 @@ public class Maze {
 		int charRow = -1;
 		int charCol = -1;
 		
+		String[][] temp = stringMaze;
 		for (int i=0; i<path.size(); i++) {
 			Node currNode = path.get(i);
 			charRow = currNode.row*2+1;
 			charCol = currNode.col*2+1;
 			
-			stringMaze[charRow][charCol] = Integer.toString(currNode.step%10);
+			temp[charRow][charCol] = Integer.toString(currNode.step%10);
+		}
+		
+		return temp;
+	}
+	
+	
+	
+	public String[][] mazeHash(ArrayList<Node> shortestPath, String[][] stringMaze){
+		int charRow = -1;
+		int charCol = -1;
+		
+		for (int i=0; i<shortestPath.size(); i++) {
+			Node currNode = shortestPath.get(i);
+			charRow = currNode.row*2+1;
+			charCol = currNode.col*2+1;
+			
+			stringMaze[charRow][charCol] = "#";
 		}
 		
 		return stringMaze;
