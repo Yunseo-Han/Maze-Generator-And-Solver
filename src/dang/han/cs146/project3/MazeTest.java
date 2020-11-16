@@ -39,7 +39,7 @@ class MazeTest {
 		testMaze.printMaze(withBFSSteps);
 		
 		//Print BFS solution
-		String[][] bfsSolution = testMaze.mazeSolution(bfs.truePath, bfs.shortestPath, stringMaze);	
+		String[][] bfsSolution = testMaze.mazeHash(bfs.truePath, bfs.shortestPath, stringMaze);	
 		testMaze.printMaze(bfsSolution);
 		
 		
@@ -90,7 +90,7 @@ class MazeTest {
 		}
 						
 		//Print DFS solution
-		String[][] dfsSolution = testMaze.mazeSolution(dfs.truePath, dfs.shortestPath, stringMaze);
+		String[][] dfsSolution = testMaze.mazeHash(dfs.truePath, dfs.shortestPath, stringMaze);
 		testMaze.printMaze(dfsSolution);
 	}
 	
@@ -117,8 +117,9 @@ class MazeTest {
 		testMaze.printMaze(withBFSSteps);
 		
 		//Print BFS solution
-		String[][] bfsSolution = testMaze.mazeSolution(bfs.truePath, bfs.shortestPath, stringMaze);	
+		String[][] bfsSolution = testMaze.mazeHash(bfs.truePath, bfs.shortestPath, stringMaze);	
 		testMaze.printMaze(bfsSolution);
+		
 		
 		ArrayList<Node> expectedPath = new ArrayList<>();
 		expectedPath.add(testMaze.maze[0][0]);
@@ -141,7 +142,7 @@ class MazeTest {
 		testMaze.printMaze(withDFSSteps);
 		
 		//Print DFS solution
-		String[][] dfsSolution = testMaze.mazeSolution(dfs.truePath, dfs.shortestPath, stringMaze);
+		String[][] dfsSolution = testMaze.mazeHash(dfs.truePath, dfs.shortestPath, stringMaze);
 		testMaze.printMaze(dfsSolution);
 	}
 	*/
@@ -205,11 +206,9 @@ class MazeTest {
 		String[][] withSteps = maze4x4.mazeSteps(bfs.truePath, stringMaze);
 		maze4x4.printMaze(withSteps);
 		
-		String[][] withHash = maze4x4.mazeHash(bfs.shortestPath, stringMaze);
+		String[][] withHash = maze4x4.mazeHash(bfs.truePath, bfs.shortestPath, stringMaze);
 		maze4x4.printMaze(withHash);
-		
-		maze4x4.printMaze(stringMaze);				// ????? how does this have # and numbers??
-		
+				
 	}
 	
 	@Test
@@ -269,7 +268,7 @@ class MazeTest {
 		maze4x4.printMaze(withSteps);
 
 		
-		String[][] withHash = maze4x4.mazeHash(dfs.shortestPath, stringMaze);
+		String[][] withHash = maze4x4.mazeHash(dfs.truePath, dfs.shortestPath, stringMaze);
 		maze4x4.printMaze(withHash);
 	}
 	
