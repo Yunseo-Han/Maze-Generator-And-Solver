@@ -1,34 +1,41 @@
 package dang.han.cs146.project3;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.Random;
 import java.util.Stack;
-
-import dang.han.cs146.project3.Node.Status;
 
 public class Maze {
 	
 	int pathLength;
 	int visitedCells;
-	
 	Node[][] maze;
 	int size;
 	Random rand; 
 	
-	
-	// might have to create a helper method for converting row, col from charmaze to maze 
-	
-	
-	
-	public Maze(int size) {
-		this.size = size;
+	public Maze(){
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("mazes/maze4.txt"));
+			String mazeSize;	//make more meaningful variable name
+			while ((mazeSize = br.readLine()) != null) {
+				size = Integer.parseInt(mazeSize);
+			}
+			br.close();
+		} catch (Exception e) {
+			System.out.println("could not read file");
+		}
 		maze = new Node[size][size];
 		initializeMaze();
 		rand = new Random();
 		rand.setSeed(10);	// helps generate the same "random" maze
+
 	}
+	
 	
 	
 	/**
@@ -81,13 +88,13 @@ public class Maze {
 	
 	
 	/**
-	 * creates a string visualization of this empty maze
+	 * Creates a string visualization of this empty maze
 	 * @return a string visualization of this empty maze
 	 */
 	public String[][] stringMaze() {
 		
 		String[][] charMaze = new String[size*2+1][size*2+1];
-				
+						
 		for (int row = 0; row < charMaze.length; row++) {
 			for (int col = 0; col < charMaze.length; col++) {
 				
@@ -147,7 +154,7 @@ public class Maze {
 	
 	
 	/**
-	 * adds path numbers to the stringMaze
+	 * Adds path numbers to the stringMaze
 	 * @param path	ArrayList<Node> containing the path taken to solve this maze 
 	 * @param charMaze	a string visualization of this maze
 	 * @return	a string visualization of this maze with the numbered solving steps 
@@ -156,7 +163,7 @@ public class Maze {
 		int charRow = -1;
 		int charCol = -1;
 		
-		for (int i=0; i<path.size(); i++) {
+		for (int i = 0; i<path.size(); i++) {
 			Node currNode = path.get(i);
 			charRow = currNode.row*2+1;
 			charCol = currNode.col*2+1;
@@ -167,10 +174,30 @@ public class Maze {
 		return stringMaze;
 	}
 	
+
+	
+	public String[][] mazeSolution(ArrayList<Node> truePath, ArrayList<Node> shortestPath, String[][] stringMaze) {
+		int charRow = -1;
+		int charCol = -1;
+		
+		for (int i = 0; i<truePath.size(); i++) {
+			Node currNode = truePath.get(i);
+			charRow = currNode.row*2+1;
+			charCol = currNode.col*2+1;
+			
+			if (shortestPath.contains(currNode)) {
+				stringMaze[charRow][charCol] = "#";
+			} else {
+				stringMaze[charRow][charCol] = " ";
+			}
+		}
+		
+		return stringMaze;
+	}
 	
 	
-	/**
-	 * prints the string version of this maze 
+	/*
+	 * Prints the string version of this maze 
 	 * @param charMaze	a string visualization of this maze
 	 */
 	public void printMaze(String[][] charMaze) {
@@ -180,7 +207,9 @@ public class Maze {
 			}
 			System.out.println(" ");
 		}
+		System.out.println(" ");
 	}
+
 	
 	
 	

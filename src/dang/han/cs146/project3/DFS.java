@@ -2,7 +2,6 @@ package dang.han.cs146.project3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
 
 import dang.han.cs146.project3.Node.Status;
@@ -25,7 +24,7 @@ public class DFS {
 		int step = 0;
 
 		currentCell.setStatus(Status.VISITED);
-		
+		currentCell.setStep(step);
 		
 		cellStack.push(currentCell);
 		truePath.add(currentCell);			
@@ -37,7 +36,7 @@ public class DFS {
 			
 			
 			if (currentCell == destination) {	
-				return;
+				break;
 			}
 			
 			List<Node> currAdjList = currentCell.adjList;
@@ -55,6 +54,8 @@ public class DFS {
 			currentCell.setStatus(Status.EXPLORED);	
 			step++;
 		}
+		
+		findShortestPath(maze, maze[0][0], destination);
 	}
 	
 	/*
@@ -64,14 +65,15 @@ public class DFS {
 	 */
 	void findShortestPath(Node[][]maze, Node source, Node destination) {
 		if (destination.equals(source)) {	//base case, source node
-			System.out.print(source.getLocation());
+		//	System.out.print(source.getLocation());
 			shortestPath.add(source);
 		} else if (destination.predecessor == null) {
-			System.out.print("no shortestPath from" + source + " to " + destination + "exists");
+		//	System.out.print("no shortestPath from" + source + " to " + destination + "exists");
+			return;
 		} else {
 			findShortestPath(maze, source, destination.predecessor);	//print the predecessor
 			shortestPath.add(destination);
-			System.out.print(destination.getLocation());
+		//	System.out.print(destination.getLocation());
 		}
 	}
 	

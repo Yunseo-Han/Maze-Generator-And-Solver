@@ -13,8 +13,8 @@ public class Node {
 	
 	enum Status {	UNDISCOVERED, VISITED, EXPLORED;	}
 	
-	int row;
-	int col;
+	int row;	//Node's row position
+	int col;	//Node's col position
 	boolean hasNorthWall;
 	boolean hasSouthWall;
 	boolean hasEastWall;
@@ -24,7 +24,7 @@ public class Node {
 	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
 	
 	Node predecessor; 
-	int step;
+	int step;	//Node's step respective to Maze solution
 	
 	
 	public Node(int row, int col) {
@@ -43,34 +43,9 @@ public class Node {
 	}
 	
 	
-	
-	public boolean isConntectedTo(Node that) {
-		// find position of that in relation to this Node
-		
-			// check if Node that is north of this.Node
-			if ( (that.row == this.row - 1) && hasNorthWall == false ) {
-				return true;
-			}			
-		
-			// check if Node that is south of this.Node 
-			else if ( (that.row == this.row + 1) && hasSouthWall == false ) {
-				return true;
-			}
-		
-			// check if Node that is east of this.Node
-			else if ( (that.col == this.col + 1) && hasEastWall == false ) {
-				return true;
-			}
-		
-			// check if Node that is west of this.Node
-			else if ( (that.col == this.col - 1) && hasWestWall == false ) {
-				return true;
-			}
-		
-		return false;
-	}
-	
-	
+	/*
+	 * Removes this Node's wall to Node that and connects the Nodes.
+	 */
 	
 	public void removeWallBtwn(Node that) {
 		// Node that is north of this Node
@@ -130,6 +105,32 @@ public class Node {
 	public void connectWest(Node cell) {
 		this.hasWestWall = false;
 		adjList.add(cell);
+	}
+	
+	public boolean isConntectedTo(Node that) {
+		// find position of that in relation to this Node
+		
+			// check if Node that is north of this.Node
+			if ( (that.row == this.row - 1) && hasNorthWall == false ) {
+				return true;
+			}			
+		
+			// check if Node that is south of this.Node 
+			else if ( (that.row == this.row + 1) && hasSouthWall == false ) {
+				return true;
+			}
+		
+			// check if Node that is east of this.Node
+			else if ( (that.col == this.col + 1) && hasEastWall == false ) {
+				return true;
+			}
+		
+			// check if Node that is west of this.Node
+			else if ( (that.col == this.col - 1) && hasWestWall == false ) {
+				return true;
+			}
+		
+		return false;
 	}
 	
 	
