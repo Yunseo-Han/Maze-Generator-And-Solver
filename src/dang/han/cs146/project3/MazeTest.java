@@ -205,6 +205,11 @@ class MazeTest {
 		String[][] withSteps = maze4x4.mazeSteps(bfs.truePath, stringMaze);
 		maze4x4.printMaze(withSteps);
 		
+		String[][] withHash = maze4x4.mazeHash(bfs.shortestPath, stringMaze);
+		maze4x4.printMaze(withHash);
+		
+		maze4x4.printMaze(stringMaze);				// ????? how does this have # and numbers??
+		
 	}
 	
 	@Test
@@ -263,6 +268,9 @@ class MazeTest {
 		String[][] withSteps = maze4x4.mazeSteps(dfs.truePath, stringMaze);
 		maze4x4.printMaze(withSteps);
 
+		
+		String[][] withHash = maze4x4.mazeHash(dfs.shortestPath, stringMaze);
+		maze4x4.printMaze(withHash);
 	}
 	
 	@Test
