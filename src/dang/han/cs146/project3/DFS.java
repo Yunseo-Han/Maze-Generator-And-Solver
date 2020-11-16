@@ -58,26 +58,23 @@ public class DFS {
 		findShortestPath(maze, maze[0][0], destination);
 	}
 	
-	/*
+	/**
 	 * Recursively prints and stores the "(row, col)" for each Node in the shortest shortestPath in the correct order.
 	 * @param source
 	 * @param destination
 	 */
 	void findShortestPath(Node[][]maze, Node source, Node destination) {
 		if (destination.equals(source)) {	//base case, source node
-		//	System.out.print(source.getLocation());
 			shortestPath.add(source);
 		} else if (destination.predecessor == null) {
-		//	System.out.print("no shortestPath from" + source + " to " + destination + "exists");
 			return;
 		} else {
-			findShortestPath(maze, source, destination.predecessor);	//print the predecessor
+			findShortestPath(maze, source, destination.predecessor);	
 			shortestPath.add(destination);
-		//	System.out.print(destination.getLocation());
 		}
 	}
 	
-	ArrayList<Node> getPath() {
+	ArrayList<Node> getPath() { //*************************should we set getters and setters? would we lose points for having default instance variables?
 		return shortestPath;
 	}
 

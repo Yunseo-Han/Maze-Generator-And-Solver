@@ -18,7 +18,9 @@ public class BFS {
 	 * @param source, starting point/Node 
 	 * @param destination, ending point/Node
 	 */
-	void solveMaze(Node[][] maze, Node source, Node destination) {
+	void solveMaze(Node[][] maze) {
+		Node source = maze[0][0];
+		Node destination = maze[maze.length-1][maze.length-1];
 		
 		source.discoverStatus = Status.VISITED;	
 		source.setStep(0);

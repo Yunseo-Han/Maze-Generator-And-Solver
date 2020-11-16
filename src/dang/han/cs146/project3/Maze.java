@@ -1,12 +1,6 @@
 package dang.han.cs146.project3;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
-
 import java.util.Random;
 import java.util.Stack;
 
@@ -18,17 +12,8 @@ public class Maze {
 	int size;
 	Random rand; 
 	
-	public Maze(){
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("mazes/maze4.txt"));
-			String mazeSize;	//make more meaningful variable name
-			while ((mazeSize = br.readLine()) != null) {
-				size = Integer.parseInt(mazeSize);
-			}
-			br.close();
-		} catch (Exception e) {
-			System.out.println("could not read file");
-		}
+	public Maze(int size){
+		this.size = size;
 		maze = new Node[size][size];
 		initializeMaze();
 		rand = new Random();
@@ -196,7 +181,7 @@ public class Maze {
 	}
 	
 	
-	/*
+	/***************************************************************** delete later
 	 * Prints the string version of this maze 
 	 * @param charMaze	a string visualization of this maze
 	 */
