@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
+import dang.han.cs146.project3.Node.Status;
+
 public class Maze {
 	
 	int pathLength;
@@ -11,6 +13,9 @@ public class Maze {
 	Node[][] maze;
 	int size;
 	Random rand; 
+	BFS bfs;
+	DFS dfs;
+	String [][] mazeSteps;
 	
 	public Maze(int size){
 		this.size = size;
@@ -18,10 +23,17 @@ public class Maze {
 		initializeMaze();
 		rand = new Random();
 		rand.setSeed(10);	// helps generate the same "random" maze
-
 	}
 	
-	
+	void resetMaze() {
+		for (int i = 0; i < maze.length; i++) {
+           for (int j = 0; j < maze.length; j++) {
+        	   maze[i][j].discoverStatus = Status.UNDISCOVERED;
+        	   maze[i][j].step = -1;
+        	   maze[i][j].predecessor = null;
+           }
+        }
+	}
 	
 	/**
 	 * creates a maze with size*size cells
@@ -144,20 +156,19 @@ public class Maze {
 	 * @param charMaze	a string visualization of this maze
 	 * @return	a string visualization of this maze with the numbered solving steps 
 	 */
-	public String[][] mazeSteps(ArrayList<Node> path, String[][] stringMaze) {
+	public void mazeSteps(ArrayList<Node> path, String[][] stringMaze) {
 		int charRow = -1;
 		int charCol = -1;
 		
-		String[][] temp = stringMaze;
+		mazeSteps = stringMaze;
 		for (int i = 0; i<path.size(); i++) {
 			Node currNode = path.get(i);
 			charRow = currNode.row*2+1;
 			charCol = currNode.col*2+1;
 			
-			temp[charRow][charCol] = Integer.toString(currNode.step%10);
+			mazeSteps[charRow][charCol] = Integer.toString(currNode.step%10);
 		}
 		
-		return temp;
 	}
 	
 	

@@ -107,33 +107,6 @@ public class Node {
 		adjList.add(cell);
 	}
 	
-	public boolean isConntectedTo(Node that) {
-		// find position of that in relation to this Node
-		
-			// check if Node that is north of this.Node
-			if ( (that.row == this.row - 1) && hasNorthWall == false ) {
-				return true;
-			}			
-		
-			// check if Node that is south of this.Node 
-			else if ( (that.row == this.row + 1) && hasSouthWall == false ) {
-				return true;
-			}
-		
-			// check if Node that is east of this.Node
-			else if ( (that.col == this.col + 1) && hasEastWall == false ) {
-				return true;
-			}
-		
-			// check if Node that is west of this.Node
-			else if ( (that.col == this.col - 1) && hasWestWall == false ) {
-				return true;
-			}
-		
-		return false;
-	}
-	
-	
 	
 	// getters and setters *************************************************************
 	

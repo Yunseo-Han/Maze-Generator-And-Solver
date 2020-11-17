@@ -55,7 +55,7 @@ public class DFS {
 			step++;
 		}
 		
-		findShortestPath(maze, maze[0][0], destination);
+//		findShortestPath(maze, maze[0][0], destination);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class DFS {
 		}
 	}
 	
-	ArrayList<Node> getPath() { //*************************should we set getters and setters? would we lose points for having default instance variables?
+	ArrayList<Node> getPath() { 
 		return shortestPath;
 	}
 

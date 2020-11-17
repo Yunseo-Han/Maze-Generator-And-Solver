@@ -9,11 +9,10 @@ import java.util.ArrayList;
 public class MazePrint {
 	BufferedWriter bw;
 	
-	
 	public MazePrint(String filepath) throws IOException {
 		File file = new File(filepath);
 			file.createNewFile();
-			bw = new BufferedWriter(new FileWriter(file, true));	// true => append mode
+			bw = new BufferedWriter(new FileWriter(file));	// true => append mode
 	}
 	
 	
@@ -32,11 +31,12 @@ public class MazePrint {
 	
 	
 	public void printPath(ArrayList<Node> path) throws IOException {
+		bw.write("Path:");
 		for (int i=0; i<path.size(); i++) {
 			bw.write("("+ path.get(i).col + ", " + path.get(i).row + ") ");
 		}
 		
-		bw.write("\n");
+		bw.write("\n\n");
 	}
 	
 	
