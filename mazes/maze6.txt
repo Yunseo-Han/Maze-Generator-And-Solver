@@ -15,7 +15,7 @@
 +-+-+-+-+-+ +
 
 
-Elapsed time generating maze of size 6: 94649 ns
+Elapsed time generating maze of size 6: 98938 ns
 
 BFS:
 + +-+-+-+-+-+
@@ -51,7 +51,7 @@ BFS:
 
 Path:(0, 0) (0, 1) (1, 1) (2, 1) (3, 1) (3, 0) (4, 0) (5, 0) (5, 1) (5, 2) (4, 2) (4, 3) (3, 3) (2, 3) (1, 3) (0, 3) (0, 4) (0, 5) (1, 5) (2, 5) (3, 5) (3, 4) (4, 4) (5, 4) (5, 5) 
 
-Elapsed time using BFS to solve maze of size 6: 32908 ns
+Elapsed time using BFS to solve maze of size 6: 31268 ns
 
 Length of path: 25
 
@@ -92,7 +92,7 @@ DFS:
 
 Path:(0, 0) (0, 1) (1, 1) (2, 1) (3, 1) (3, 0) (4, 0) (5, 0) (5, 1) (5, 2) (4, 2) (4, 3) (3, 3) (2, 3) (1, 3) (0, 3) (0, 4) (0, 5) (1, 5) (2, 5) (3, 5) (3, 4) (4, 4) (5, 4) (5, 5) 
 
-Elapsed time using DFS to solve maze of size 6: 22144 ns
+Elapsed time using DFS to solve maze of size 6: 21210 ns
 
 Length of path: 25
 

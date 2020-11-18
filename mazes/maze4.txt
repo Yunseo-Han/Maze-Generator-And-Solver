@@ -11,7 +11,7 @@
 +-+-+-+ +
 
 
-Elapsed time generating maze of size 4: 38039 ns
+Elapsed time generating maze of size 4: 36605 ns
 
 BFS:
 + +-+-+-+
@@ -39,7 +39,7 @@ BFS:
 
 Path:(0, 0) (0, 1) (1, 1) (2, 1) (3, 1) (3, 2) (3, 3) 
 
-Elapsed time using BFS to solve maze of size 4: 11228 ns
+Elapsed time using BFS to solve maze of size 4: 10901 ns
 
 Length of path: 7
 
@@ -72,7 +72,7 @@ DFS:
 
 Path:(0, 0) (0, 1) (1, 1) (2, 1) (3, 1) (3, 2) (3, 3) 
 
-Elapsed time using DFS to solve maze of size 4: 7761 ns
+Elapsed time using DFS to solve maze of size 4: 8129 ns
 
 Length of path: 7
 
