@@ -8,8 +8,6 @@ import dang.han.cs146.project3.Node.Status;
 
 public class Maze {
 	
-	int pathLength;
-	int visitedCells;
 	Node[][] maze;
 	int size;
 	Random rand; 

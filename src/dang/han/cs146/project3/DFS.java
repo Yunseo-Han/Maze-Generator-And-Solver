@@ -9,8 +9,9 @@ import dang.han.cs146.project3.Node.Status;
 public class DFS {
 	
 	private Stack<Node> cellStack = new Stack<>();
-	ArrayList<Node> shortestPath = new ArrayList<>();
-	ArrayList<Node>	truePath = new ArrayList<>();
+	ArrayList<Node> shortestPath = new ArrayList<>();	//Stores the mazes shortest path
+	ArrayList<Node>	truePath = new ArrayList<>();		//Keeps track of EVERY node visited 
+
 	
 	/**
 	 * solves maze using DFS iterative algorithm

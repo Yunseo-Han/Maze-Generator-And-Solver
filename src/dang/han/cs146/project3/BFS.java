@@ -8,9 +8,9 @@ import dang.han.cs146.project3.Node.Status;
 
 public class BFS {
 	
-	Queue<Node> queue = new LinkedList<>();
-	ArrayList<Node> shortestPath = new ArrayList<>();
-	ArrayList<Node>	truePath = new ArrayList<>();		//keeps track of every node visited 
+	Queue<Node> queue = new LinkedList<>();				//Used to help solve maze
+	ArrayList<Node> shortestPath = new ArrayList<>();	//Stores the mazes shortest path
+	ArrayList<Node>	truePath = new ArrayList<>();		//Keeps track of EVERY node visited 
 
 	
 	/**

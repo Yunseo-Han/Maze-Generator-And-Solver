@@ -25,7 +25,9 @@ class MazeTest {
 		
 	}
 	
-
+	/* 
+	 * The next 7 test cases are our own personal generated mazes
+	 */
 	@Test 
 	void maze4() throws IOException {
 		output = new MazePrint("mazes/maze4.txt");
@@ -255,7 +257,7 @@ class MazeTest {
 	@Test 
 	void maze7() throws IOException {
 		output = new MazePrint("mazes/maze7.txt");
-		int mazeSize = 4;
+		int mazeSize = 7;
 		currentMaze = new Maze(mazeSize);
 		
 		//Recording time to create Maze

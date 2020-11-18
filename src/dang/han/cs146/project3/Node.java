@@ -15,15 +15,15 @@ public class Node {
 	
 	int row;	//Node's row position
 	int col;	//Node's col position
-	boolean hasNorthWall;
-	boolean hasSouthWall;
-	boolean hasEastWall;
-	boolean hasWestWall;
+	boolean hasNorthWall;	// stores true if Node has a north wall, else false
+	boolean hasSouthWall;	// stores true if Node has a south wall, else false
+	boolean hasEastWall;	// stores true if Node has a east wall, else false
+	boolean hasWestWall;	// stores true if Node has a west wall, else false
 	Status discoverStatus;
 	
-	ArrayList<Node> adjList;			// Holds the adjList that have an edge to this Node
+	ArrayList<Node> adjList;	// Holds the adjList that have an edge to this Node
 	
-	Node predecessor; 
+	Node predecessor; 	// Node that comes before this Node
 	int step;	//Node's step respective to Maze solution
 	
 	
